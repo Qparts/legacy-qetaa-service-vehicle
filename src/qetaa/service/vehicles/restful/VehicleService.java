@@ -25,6 +25,8 @@ import qetaa.service.vehicles.model.Model;
 import qetaa.service.vehicles.model.ModelYear;
 
 @Path("/")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class VehicleService {
 	@EJB
 	private DAO dao;
@@ -37,18 +39,10 @@ public class VehicleService {
 
 	}
 
-	@GET
-	@Path("/tet")
-	public String test1() {
-		return "hala walla";
-	}
-
 	// idempotent
 	@SecuredUser
 	@POST
 	@Path("make")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response createVehicle(Make make) {
 		try {
 			List<Make> makes = dao.getCondition(Make.class, "name", make.getName());
@@ -235,11 +229,9 @@ public class VehicleService {
 		}
 	}
 
-	@SecuredUser
+	@Secured
 	@GET
 	@Path("all-makes")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllVehicles() {
 		try {
 			List<Make> makes = dao.getOrderBy(Make.class, "name");

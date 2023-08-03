@@ -284,7 +284,7 @@ public class DAO {
 			Date d = (Date) val;
 			Calendar c = Calendar.getInstance();
 			c.setTime(d);
-			q.setParameter(name, c, TemporalType.TIMESTAMP);
+			q.setParameter(name, c.getTime(), TemporalType.TIMESTAMP);
 		}
 	}
 
@@ -294,7 +294,7 @@ public class DAO {
 			q.setParameter(name, d, TemporalType.DATE);
 		} else if (val instanceof Calendar) {
 			Calendar c = (Calendar) val;
-			q.setParameter(name, c, TemporalType.DATE);
+			q.setParameter(name, c.getTime(), TemporalType.DATE);
 		} else {
 			q.setParameter(name, val);
 		}
